@@ -10,6 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "beacon" is now active!');
 
+
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
@@ -17,6 +18,13 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from beacon!');
+		let editor = vscode.window.activeTextEditor;
+		let document = editor?.document;
+		let curPos: vscode.Position | undefined = editor?.selection.active;
+		console.log(curPos);
+		if (curPos) {
+			console.log(document?.offsetAt(curPos));
+		}		
 	});
 
 	context.subscriptions.push(disposable);
