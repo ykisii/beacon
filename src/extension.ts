@@ -18,12 +18,23 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from beacon!');
+		const decorationType = vscode.window.createTextEditorDecorationType({
+			backgroundColor: 'red'
+		});
 		let editor = vscode.window.activeTextEditor;
 		let document = editor?.document;
 		let curPos: vscode.Position | undefined = editor?.selection.active;
 		console.log(curPos);
 		if (curPos) {
 			console.log(document?.offsetAt(curPos));
+			const pos = document?.offsetAt(curPos);
+			if (pos !== undefined) {
+				const line = editor?.document.lineAt?.(pos);
+				if (line) {
+					const decoration = { range: new vscode.Range(line.range.start, line.range.end), hovermessage: "hooooo"};
+					editor?.setDecorations(decorationType, [decoration]);
+				}
+			}
 		}		
 	});
 
