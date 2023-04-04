@@ -45,7 +45,7 @@ function textChanged() {
 			if (pos !== undefined) {
 				const line = editor?.document.lineAt?.(curPos);
 				if (line) {
-					const decoration = { range: new vscode.Range(line.range.start, line.range.end), hovermessage: "hooooo"};
+					const decoration = { range: new vscode.Range(line.range.start, line.range.end) };
 					editor?.setDecorations(decorationType, [decoration]);
 				}
 			}
