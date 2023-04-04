@@ -37,19 +37,15 @@ function textChanged() {
 		let editor = vscode.window.activeTextEditor;
 		let document = editor?.document;
 		let curPos: vscode.Position | undefined = editor?.selection.active;
-		console.log(curPos);
+		//console.log(curPos);
 		if (curPos) {
-			console.log(document?.offsetAt(curPos));
+			//console.log(document?.offsetAt(curPos));
 			const pos = document?.offsetAt(curPos);
-			console.log("pos->", pos, pos !== undefined);
+			//console.log("pos->", pos, pos !== undefined);
 			if (pos !== undefined) {
 				const line = editor?.document.lineAt?.(curPos);
-				//console.log("line-> ", line, line?.range.start, line?.range.end);
-				//const decoration = { range: new vscode.Range(line!.range.start, line!.range.end), hovermessage: "hooooo"};
-				//editor?.setDecorations(decorationType, [decoration]);
 				if (line) {
 					const decoration = { range: new vscode.Range(line.range.start, line.range.end), hovermessage: "hooooo"};
-					console.log("decoration-> ", decoration);
 					editor?.setDecorations(decorationType, [decoration]);
 				}
 			}
