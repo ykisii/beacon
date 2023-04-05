@@ -19,9 +19,6 @@ function textChanged() {
 	const decorationType = vscode.window.createTextEditorDecorationType({
 			backgroundColor: 'red'
 		});
-	const preDecoration = vscode.window.createTextEditorDecorationType({
-			backgroundColor: ''
-		});
 
 	let editor = vscode.window.activeTextEditor;
 	let document = editor?.document;
