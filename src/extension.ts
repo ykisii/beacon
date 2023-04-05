@@ -1,7 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { resolve } from 'path';
 import { text } from 'stream/consumers';
 import * as vscode from 'vscode';
+import { setTimeout } from 'timers/promises';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -24,6 +26,7 @@ function textChanged() {
 	let document = editor?.document;
 	let curPos: vscode.Position | undefined = editor?.selection.active;
 	//console.log(curPos);
+	const start = async () => {
 	if (curPos) {
 		//console.log(document?.offsetAt(curPos));
 		const pos = document?.offsetAt(curPos);
@@ -31,15 +34,18 @@ function textChanged() {
 		if (pos !== undefined) {
 			const line = editor?.document.lineAt?.(curPos);
 			if (line) {
-				const decoration = { range: new vscode.Range(line.range.start, line.range.end) };
-				editor?.setDecorations(decorationType, [decoration]);
-
-				setTimeout(() => {
-					console.log("expired");
-					decorationType.dispose();
-					editor!.setDecorations(decorationType, []);
-					}, 1500);
+				const rangeEnd = line.range.end;
+				for (let i = 0; i < 32; i++) {
+					let end = new vscode.Position(line.lineNumber, i+1);
+					const decoration = { range: new vscode.Range(line.range.start, end) };
+					editor?.setDecorations(decorationType, [decoration]);
+					await setTimeout(5);
 				}
+				await setTimeout(1500);
+				decorationType.dispose();
+				editor!.setDecorations(decorationType, []);
 			}
-		}	
+		}
+	}};	
+	start();
 }
