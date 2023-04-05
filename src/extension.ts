@@ -19,19 +19,29 @@ function textChanged() {
 	const decorationType = vscode.window.createTextEditorDecorationType({
 			backgroundColor: 'red'
 		});
-		let editor = vscode.window.activeTextEditor;
-		let document = editor?.document;
-		let curPos: vscode.Position | undefined = editor?.selection.active;
-		//console.log(curPos);
-		if (curPos) {
-			//console.log(document?.offsetAt(curPos));
-			const pos = document?.offsetAt(curPos);
-			//console.log("pos->", pos, pos !== undefined);
-			if (pos !== undefined) {
-				const line = editor?.document.lineAt?.(curPos);
-				if (line) {
-					const decoration = { range: new vscode.Range(line.range.start, line.range.end) };
-					editor?.setDecorations(decorationType, [decoration]);
+	const preDecoration = vscode.window.createTextEditorDecorationType({
+			backgroundColor: ''
+		});
+
+	let editor = vscode.window.activeTextEditor;
+	let document = editor?.document;
+	let curPos: vscode.Position | undefined = editor?.selection.active;
+	//console.log(curPos);
+	if (curPos) {
+		//console.log(document?.offsetAt(curPos));
+		const pos = document?.offsetAt(curPos);
+		//console.log("pos->", pos, pos !== undefined);
+		if (pos !== undefined) {
+			const line = editor?.document.lineAt?.(curPos);
+			if (line) {
+				const decoration = { range: new vscode.Range(line.range.start, line.range.end) };
+				editor?.setDecorations(decorationType, [decoration]);
+
+				setTimeout(() => {
+					console.log("expired");
+					decorationType.dispose();
+					editor!.setDecorations(decorationType, []);
+					}, 1500);
 				}
 			}
 		}	
