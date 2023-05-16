@@ -34,8 +34,8 @@ function textChanged() {
 				const rangeEnd = line.range.end;
 				for (let i = 0; i < line.text.length; i++) {
 					let end = new vscode.Position(line.lineNumber, i+1);
-					const decoration = { range: new vscode.Range(curPos, end) };
-					editor?.setDecorations(decorationType, [decoration]);
+					const effectRange = { range: new vscode.Range(curPos, end) };
+					editor?.setDecorations(decorationType, [effectRange]);
 					await setTimeout(1);
 				}
 				await setTimeout(450);
