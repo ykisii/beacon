@@ -25,12 +25,9 @@ function textChanged() {
 	let editor = vscode.window.activeTextEditor;
 	let document = editor?.document;
 	let curPos: vscode.Position | undefined = editor?.selection.active;
-	//console.log(curPos);
 	const start = async () => {
 	if (curPos && document) {
-		//console.log(document?.offsetAt(curPos));
 		const pos = document.offsetAt(curPos);
-		//console.log("pos->", pos, pos !== undefined);
 		if (pos !== undefined) {
 			const line = editor?.document.lineAt?.(curPos);
 			if (line) {
