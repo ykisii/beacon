@@ -27,21 +27,22 @@ function textChanged() {
 	let curPos: vscode.Position | undefined = editor?.selection.active;
 	//console.log(curPos);
 	const start = async () => {
-	if (curPos) {
+	if (curPos && document) {
 		//console.log(document?.offsetAt(curPos));
-		const pos = document?.offsetAt(curPos);
+		const pos = document.offsetAt(curPos);
 		//console.log("pos->", pos, pos !== undefined);
 		if (pos !== undefined) {
 			const line = editor?.document.lineAt?.(curPos);
 			if (line) {
 				const rangeEnd = line.range.end;
-				for (let i = 0; i < 32; i++) {
+				for (let i = 0; i < line.text.length; i++) {
 					let end = new vscode.Position(line.lineNumber, i+1);
-					const decoration = { range: new vscode.Range(line.range.start, end) };
+					const decoration = { range: new vscode.Range(curPos, end) };
 					editor?.setDecorations(decorationType, [decoration]);
 					await setTimeout(5);
 				}
-				await setTimeout(1500);
+				await setTimeout(800);
+				console.log("dispose!");
 				decorationType.dispose();
 				editor!.setDecorations(decorationType, []);
 			}
