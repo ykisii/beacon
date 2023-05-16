@@ -36,9 +36,9 @@ function textChanged() {
 					let end = new vscode.Position(line.lineNumber, i+1);
 					const decoration = { range: new vscode.Range(curPos, end) };
 					editor?.setDecorations(decorationType, [decoration]);
-					await setTimeout(5);
+					await setTimeout(1);
 				}
-				await setTimeout(800);
+				await setTimeout(450);
 				console.log("dispose!");
 				decorationType.dispose();
 				editor!.setDecorations(decorationType, []);
