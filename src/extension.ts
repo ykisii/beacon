@@ -19,7 +19,8 @@ export function deactivate() {}
 
 function textChanged() {
 	const decorationType = vscode.window.createTextEditorDecorationType({
-			backgroundColor: 'red'
+			backgroundColor: 'darkgray',
+			color: 'gray',
 		});
 
 	let editor = vscode.window.activeTextEditor;
