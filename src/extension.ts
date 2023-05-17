@@ -9,7 +9,6 @@ import { setTimeout } from 'timers/promises';
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	vscode.window.onDidChangeActiveTextEditor(ediror => {
-		console.log("onDidChangeActiveTextEditor");
 		textChanged();
 	}, null, context.subscriptions);
 }
@@ -42,7 +41,6 @@ function textChanged() {
 					await setTimeout(1);
 				}
 				await setTimeout(450);
-				console.log("dispose!");
 				decorationType.dispose();
 				editor!.setDecorations(decorationType, []);
 			}
