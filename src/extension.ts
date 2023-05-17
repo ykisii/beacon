@@ -26,11 +26,13 @@ function textChanged() {
 	let editor = vscode.window.activeTextEditor;
 	let document = editor?.document;
 	let curPos: vscode.Position | undefined = editor?.selection.active;
+	if (editor === undefined || document === undefined || curPos === undefined) {
+		return;
+	}
 	const start = async () => {
-	if (curPos && document) {
-		const pos = document.offsetAt(curPos);
+		const pos = document!.offsetAt(curPos!);
 		if (pos !== undefined) {
-			const line = editor?.document.lineAt?.(curPos);
+			const line = editor?.document.lineAt?.(curPos!);
 			if (line) {
 				const rangeEnd = line.range.end;
 				for (let i = 0; i < line.text.length; i++) {
@@ -45,6 +47,6 @@ function textChanged() {
 				editor!.setDecorations(decorationType, []);
 			}
 		}
-	}};	
+	};	
 	start();
 }
